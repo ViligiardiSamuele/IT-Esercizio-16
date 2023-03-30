@@ -37,8 +37,8 @@ public class Form extends JFrame{
         
         //window sections with relative layout
         setLayout(new BorderLayout());
-        JPanel body = new JPanel(new GridLayout(6,1));
-        JPanel buttons = new JPanel(new GridLayout(2,2));
+        JPanel body = new JPanel(new GridLayout(6,1)); //il body contiene il form
+        JPanel buttons = new JPanel(new GridLayout(2,2)); //i bottoni stanno in fondo
         
         //body
         body.add(JLcognome);
@@ -53,29 +53,38 @@ public class Form extends JFrame{
         body.add(JTFcittaDestinazione);
         body.add(JLdata);
         body.add(JTFdata);
-        
-        
+
         //buttons bottom
         buttons.add(JBconferma);
         buttons.add(JBannulla);
         
-        this.getContentPane().add(JLinfo, BorderLayout.NORTH);
+        this.getContentPane().add(JLinfo, BorderLayout.NORTH); //JLinfo in posizione NORTH
         this.getContentPane().add(body, BorderLayout.CENTER);
         this.getContentPane().add(buttons, BorderLayout.SOUTH);
         
         //action listener for buttons
         JBconferma.addActionListener((ActionEvent e) -> {
-            JLinfo.setText("");
-            persone.add(new Persona(
-                    JTFnome.getText(),
-                    JTFcognome.getText(),
-                    JTFtelefono.getText(),
-                    JTFcittaPartenza.getText(),
-                    JTFcittaDestinazione.getText(),
-                    JTFdata.getText()
-            ));
-            System.out.println(persone.get(persone.size()-1));
+            JLinfo.setText("Inserisci i dati");
+            if(!(
+                    JTFnome.getText().isEmpty() ||
+                    JTFcognome.getText().isEmpty() ||
+                    JTFtelefono.getText().isEmpty() ||
+                    JTFcittaPartenza.getText().isEmpty() ||
+                    JTFcittaDestinazione.getText().isEmpty() ||
+                    JTFdata.getText().isEmpty()
+            )){
+                persone.add(new Persona(
+                        JTFnome.getText(),
+                        JTFcognome.getText(),
+                        JTFtelefono.getText(),
+                        JTFcittaPartenza.getText(),
+                        JTFcittaDestinazione.getText(),
+                        JTFdata.getText()
+                ));
+                System.out.println(persone.get(persone.size()-1));
+            }
         });
+
         JBannulla.addActionListener((ActionEvent e) -> {
             this.JLinfo.setText("Caselle svuotate");
             JTFnome.setText("");
@@ -89,12 +98,12 @@ public class Form extends JFrame{
         //window settings
         setLocationRelativeTo(null);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
-        
+
+        JLinfo.setBorder(BorderFactory.createEmptyBorder(0,10,0,10));
         body.setBorder(BorderFactory.createEmptyBorder(10,10,0,10));
         buttons.setBorder(BorderFactory.createEmptyBorder(5,10,10,10));
         setSize(300,300);
         setResizable(false);
         setVisible(true);
     }
-    
 }
